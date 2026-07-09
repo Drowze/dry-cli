@@ -314,6 +314,22 @@ module Commands
     end
   end
 
+  class ApiRequest < Dry::CLI::Command
+    desc "Execute HTTP request to our server"
+
+    argument :method, desc: "HTTP method", required: true, values: %w[GET POST PUT PATCH DELETE]
+    argument :path,   desc: "Request path", required: true
+
+    option :header, desc: "HTTP request header in key:value format", repeatable: true,
+      default: ["Accept: application/json"]
+    option :query, desc: "Query parameters in key=value format", repeatable: true,
+      cast: ->(query) { query.split("=") }
+
+    def call(method:, path:, **options)
+      puts "#{method} #{path} query: #{options[:query]} headers: #{options[:header]}"
+    end
+  end
+
   class Hello < Dry::CLI::Command
     def call(*)
       raise NotImplementedError

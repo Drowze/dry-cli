@@ -9,6 +9,7 @@ RSpec.shared_examples "Rendering" do |cli|
     error = capture_error { cli.call }
     expected = <<~DESC
       Commands:
+        #{cmd} api METHOD PATH                                         # Execute HTTP request to our server
         #{cmd} assets [SUBCOMMAND]
         #{cmd} callbacks DIR                                           # Command with callbacks
         #{cmd} console                                                 # Starts Foo console
@@ -71,6 +72,7 @@ RSpec.shared_examples "Rendering" do |cli|
 
     expected = <<~DESC
       Commands:
+        #{cmd} api METHOD PATH                                         # Execute HTTP request to our server
         #{cmd} assets [SUBCOMMAND]
         #{cmd} callbacks DIR                                           # Command with callbacks
         #{cmd} console                                                 # Starts Foo console
@@ -101,6 +103,7 @@ RSpec.shared_examples "Rendering" do |cli|
 
     expected = <<~DESC
       Commands:
+        #{cmd} api METHOD PATH                                         # Execute HTTP request to our server
         #{cmd} assets [SUBCOMMAND]
         #{cmd} callbacks DIR                                           # Command with callbacks
         #{cmd} console                                                 # Starts Foo console

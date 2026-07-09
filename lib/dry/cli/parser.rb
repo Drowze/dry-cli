@@ -16,13 +16,7 @@ module Dry
       def self.call(command, arguments, prog_name)
         parsed_options = {}
 
-        OptionParser.new do |opts|
-          command.options.each do |option|
-            opts.on(*option.parser_options) do |value|
-              parsed_options[option.name.to_sym] = option.cast(value)
-            end
-          end
-
+        option_parser(command.options, parsed_options) do |opts|
           opts.on_tail("-h", "--help") do
             return Result.help
           end
@@ -36,6 +30,28 @@ module Dry
         Result.failure(exception.message)
       rescue CastError => exception
         Result.failure(exception.message)
+      end
+
+      # @since NEXT
+      # @api private
+      def self.option_parser(command_options, parsed_options)
+        OptionParser.new do |opts|
+          command_options.each do |option|
+            option_name = option.name.to_sym
+            opts.on(*option.parser_options) do |value|
+              value = option.cast(value)
+
+              if option.repeatable?
+                parsed_options[option_name] ||= []
+                parsed_options[option_name] << value
+              else
+                parsed_options[option_name] = value
+              end
+            end
+          end
+
+          yield(opts) if block_given?
+        end
       end
 
       # @since 0.1.0

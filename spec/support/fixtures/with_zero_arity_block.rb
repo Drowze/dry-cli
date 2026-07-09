@@ -14,6 +14,7 @@ WithZeroArityBlock = Dry.CLI do
   register "server",  Commands::Server,  aliases: ["s"]
   register "version", Commands::Version, aliases: ["v", "-v", "--version"]
   register "exec",    Commands::Exec
+  register "api",     Commands::ApiRequest
 
   register "hello",       Commands::Hello
   register "greeting",    Commands::Greeting

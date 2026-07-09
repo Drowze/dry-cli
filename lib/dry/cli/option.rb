@@ -76,6 +76,12 @@ module Dry
         type == :array
       end
 
+      # @since NEXT
+      # @api private
+      def repeatable?
+        options[:repeatable]
+      end
+
       # @since 0.1.0
       # @api private
       def default

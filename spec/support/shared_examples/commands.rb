@@ -162,6 +162,35 @@ RSpec.shared_examples "Commands" do |cli|
       end
     end
 
+    context "with repeatable option" do
+      it "respects the default value" do
+        output = capture_output { cli.call(arguments: %w[api GET /foo]) }
+        expected_header = ["Accept: application/json"]
+        expect(output).to eq("GET /foo query:  headers: #{expected_header}\n")
+      end
+
+      it "captures all submitted repeatable options" do
+        output = capture_output {
+          cli.call(arguments: %w[
+            api GET /foo --header=Accept:\ application/json --header=x-customer:\ 1234
+          ])
+        }
+        expected_header = ["Accept: application/json", "x-customer: 1234"]
+        expect(output).to eq("GET /foo query:  headers: #{expected_header}\n")
+      end
+
+      it "applies casting to each value of repeatable options" do
+        output = capture_output {
+          cli.call(arguments: %w[
+            api GET /foo --query=page=1 --query=per_page=10
+          ])
+        }
+        expected_query = [["page", "1"], ["per_page", "10"]]
+        expected_header = ["Accept: application/json"]
+        expect(output).to eq("GET /foo query: #{expected_query} headers: #{expected_header}\n")
+      end
+    end
+
     context "with supported values" do
       context "and with supported value passed" do
         it "calls the command with the option" do

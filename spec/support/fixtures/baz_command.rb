@@ -9,6 +9,7 @@ module Baz
     option :option_one, aliases: %w[1], desc: "Option one"
     option :boolean_option, aliases: %w[b], desc: "Option boolean", type: :boolean
     option :option_with_default, aliases: %w[d], desc: "Option default", default: "test"
+    option :repeatable_option, aliases: %w[r], desc: "Option repeatable", repeatable: true
 
     def call(mandatory_arg:, optional_arg: "optional_arg", **options)
       puts "mandatory_arg: #{mandatory_arg}. " \

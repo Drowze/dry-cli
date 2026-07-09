@@ -139,6 +139,9 @@ module Dry
         unless option.default.nil?
           description = "#{description}, default: #{option.default.inspect}"
         end
+        if option.repeatable?
+          description = "#{description} (repeatable)"
+        end
         description
       end
 

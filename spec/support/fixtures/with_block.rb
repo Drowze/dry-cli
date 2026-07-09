@@ -14,6 +14,7 @@ WithBlock = Dry::CLI.new do |cli|
   cli.register "server",  Commands::Server,  aliases: ["s"]
   cli.register "version", Commands::Version, aliases: ["v", "-v", "--version"]
   cli.register "exec",    Commands::Exec
+  cli.register "api",     Commands::ApiRequest
 
   cli.register "hello",       Commands::Hello
   cli.register "greeting",    Commands::Greeting

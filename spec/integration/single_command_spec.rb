@@ -33,6 +33,7 @@ RSpec.describe "Single command" do
           --option-one=VALUE, -1 VALUE           # Option one
           --[no-]boolean-option, -b              # Option boolean
           --option-with-default=VALUE, -d VALUE  # Option default, default: "test"
+          --repeatable-option=VALUE, -r VALUE    # Option repeatable (repeatable)
           --help, -h                             # Print this help
       OUTPUT
       expect(output).to eq(expected_output)
